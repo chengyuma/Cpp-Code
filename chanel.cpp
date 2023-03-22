@@ -7,7 +7,7 @@ public:
   Chanel() : is_close(false) {}
   ~Chanel() = default;
   template <typename U> bool Send(U &&data);
-  bool Recive(T *data);
+  bool Recive(T **data_ptr);
   void Close();
 
 private:
@@ -33,13 +33,13 @@ template <typename T> template <typename U> bool Chanel<T>::Send(U &&data) {
   return true;
 }
 
-template <typename T> bool Chanel<T>::Recive(T *data) {
+template <typename T> bool Chanel<T>::Recive(T **data_ptr) {
   std::unique_lock<std::mutex> lock(mut_);
   cond_.wait(lock, [this]() { return !q.empty() || is_close; });
   if (is_close) {
     return false;
   }
-  *data = std::move(q.front());
+  *data_ptr = &q.front();
   q.pop();
   return true;
 }
@@ -58,8 +58,8 @@ int main() {
     Ch.Send(1);
   });
   th.join();
-  auto p = std::make_shared<int>(0);
-  Ch.Recive(p.get());
+  int *p;
+  Ch.Recive(&p);
   Ch.Close();
   std::cout << *p << std::endl;
 
