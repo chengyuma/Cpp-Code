@@ -1,7 +1,7 @@
 #include <mutex>
 
+// could use std::shared_mutex instead
 class RWLock {
-
 public:
   RWLock() : lock_count(0), waiter(0) {}
   void RLock();

@@ -2,10 +2,11 @@
 #include <mutex>
 #include <queue>
 
-template <typename T> class Chanel {
+// like golang's Channel
+template <typename T> class Channel {
 public:
-  Chanel() : is_close(false) {}
-  ~Chanel() = default;
+  Channel() : is_close(false) {}
+  ~Channel() = default;
   template <typename U> bool Send(U &&data);
   bool Recive(T *data_ptr);
   void Close();
@@ -17,7 +18,7 @@ private:
   bool is_close;
 };
 
-template <typename T> template <typename U> bool Chanel<T>::Send(U &&data) {
+template <typename T> template <typename U> bool Channel<T>::Send(U &&data) {
   bool notify;
   {
     std::unique_lock<std::mutex> lock(mut_);
@@ -33,7 +34,7 @@ template <typename T> template <typename U> bool Chanel<T>::Send(U &&data) {
   return true;
 }
 
-template <typename T> bool Chanel<T>::Recive(T *data_ptr) {
+template <typename T> bool Channel<T>::Recive(T *data_ptr) {
   std::unique_lock<std::mutex> lock(mut_);
   cond_.wait(lock, [this]() { return !q.empty() || is_close; });
   if (is_close) {
@@ -44,7 +45,7 @@ template <typename T> bool Chanel<T>::Recive(T *data_ptr) {
   return true;
 }
 
-template <typename T> void Chanel<T>::Close() {
+template <typename T> void Channel<T>::Close() {
   std::unique_lock<std::mutex> lock(mut_);
   is_close = true;
   cond_.notify_all();

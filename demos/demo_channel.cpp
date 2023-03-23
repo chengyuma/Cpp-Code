@@ -1,10 +1,10 @@
-#include "../chanel.h"
+#include "../channel.h"
 #include <iostream>
 #include <queue>
 #include <thread>
 
 int main() {
-  Chanel<int> Ch;
+  Channel<int> Ch;
   std::thread th([&Ch]() {
     using namespace std::chrono_literals;
     std::this_thread::sleep_for(200ms);

@@ -6,7 +6,7 @@ enable_testing()
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(demo_chanel demos/demo_chanel.cpp)
+add_executable(demo_channel demos/demo_channel.cpp)
 add_executable(demo_read_write_lock demos/demo_read_write_lock.cpp)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
