@@ -34,7 +34,7 @@ void RWLock::URLock() {
       cond_.notify_one();
     }
   } else {
-    exit(-1);
+    exit(1);
   }
 }
 
@@ -56,6 +56,6 @@ void RWLock::UWLock() {
       cond_.notify_all();
     }
   } else {
-    exit(-1);
+    exit(1);
   }
 }
