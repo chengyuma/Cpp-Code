@@ -33,8 +33,6 @@ void ProducerConsumerModel<T>::AddProducer(std::function<T(void)> fun,
         ready = true;
         consumer_cond.notify_all();
       }
-      using namespace std::chrono_literals;
-      std::this_thread::sleep_for(1000ms);
     }
   });
   producers.push_back(std::move(th));
