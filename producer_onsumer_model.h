@@ -1,24 +1,24 @@
 #include <condition_variable>
+#include <functional>
 #include <mutex>
 #include <thread>
-#include <functional>
 
 template <typename T> class ProducerConsumerModel {
-public:
-  std::mutex mut;
-  std::condition_variable consumer_cond;
-  std::condition_variable producer_cond;
-  T buffer;
-  std::vector<std::thread> producers;
-  std::vector<std::thread> consumers;
-  bool ready;
-
 public:
   ProducerConsumerModel() : ready(false) {}
 
   void AddProducer(std::function<T(void)> fun, int times);
   void AddConsumer(std::function<void(T)> fun, int times);
   void JoinAllThread();
+
+private:
+  std::mutex mut;
+  std::condition_variable consumer_cond;
+  std::condition_variable producer_cond;
+  std::vector<std::thread> producers;
+  std::vector<std::thread> consumers;
+  T buffer;
+  bool ready;
 };
 
 template <typename T>
