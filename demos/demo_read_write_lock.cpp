@@ -1,6 +1,8 @@
 #include "../read_write_lock.h"
+#include <algorithm>
 #include <iostream>
 #include <thread>
+#include <vector>
 
 int main() {
   RWLock lock;
@@ -18,25 +20,20 @@ int main() {
     std::cout << "write finish\n";
     lock.UWLock();
   };
+  std::vector<std::thread> threads;
   using namespace std::chrono_literals;
-  std::thread th1(write);
+  threads.push_back(std::thread(write));
   std::this_thread::sleep_for(200ms);
-  std::thread th2(read);
-  std::thread th3(read);
+  threads.push_back(std::thread(read));
+  threads.push_back(std::thread(read));
   std::this_thread::sleep_for(4000ms);
-  std::thread th4(write);
-  std::thread th5(write);
+  threads.push_back(std::thread(write));
+  threads.push_back(std::thread(write));
   std::this_thread::sleep_for(200ms);
-  std::thread th6(read);
-  std::thread th7(read);
+  threads.push_back(std::thread(read));
+  threads.push_back(std::thread(read));
 
-  th1.join();
-  th2.join();
-  th3.join();
-  th4.join();
-  th5.join();
-  th6.join();
-  th7.join();
+  for_each(threads.begin(), threads.end(), [](auto &i) { i.join(); });
 
   return 0;
 }
