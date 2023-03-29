@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(demo_channel demos/demo_channel.cpp)
 add_executable(demo_read_write_lock demos/demo_read_write_lock.cpp)
 add_executable(demo_spinlock demos/demo_spinlock.cpp)
-add_executable(demo_producer_onsumer_model demos/demo_producer_onsumer_model.cpp)
+add_executable(demo_producer_consumer_model demos/demo_producer_consumer_model.cpp)
 add_executable(demo_church_numerals  demos/demo_church_numerals.cpp)
 
 

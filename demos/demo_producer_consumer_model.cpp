@@ -1,4 +1,4 @@
-#include "../producer_onsumer_model.h"
+#include "../producer_consumer_model.h"
 
 #include <iostream>
 
