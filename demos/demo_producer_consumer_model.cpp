@@ -1,6 +1,7 @@
 #include "../producer_consumer_model.h"
 
 #include <iostream>
+#include <mutex>
 
 int main() {
   std::mutex mut;
@@ -8,8 +9,11 @@ int main() {
   for (int i = 0; i < 10; i++) {
     obj.AddProducer([]() {
       int temp = random();
-      // std::cout is not thread safe
-      std::cout << "Produce: " << temp << std::endl;
+      {
+        static std::mutex io_mut;
+        std::unique_lock<std::mutex> lock;
+        std::cout << "Produce: " << temp << std::endl;
+      }
       using namespace std::chrono_literals;
       std::this_thread::sleep_for(1000ms);
       return temp;
