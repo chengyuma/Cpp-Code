@@ -8,8 +8,8 @@ template <typename T> class ProducerConsumerModel {
 public:
   ProducerConsumerModel() : ready(false) {}
 
-  void AddProducer(std::function<T()> fun);
-  void AddConsumer(std::function<void(T)> fun);
+  void AddProducer(const std::function<T()> &fun);
+  void AddConsumer(const std::function<void(T)> &fun);
   void JoinAllThread();
 
 private:
@@ -23,7 +23,7 @@ private:
 };
 
 template <typename T>
-void ProducerConsumerModel<T>::AddProducer(std::function<T()> fun) {
+void ProducerConsumerModel<T>::AddProducer(const std::function<T()> &fun) {
   std::thread th([this, fun]() {
     std::unique_lock<std::mutex> lock(mut);
     producer_cond.wait(lock, [this]() { return !ready; });
@@ -36,7 +36,7 @@ void ProducerConsumerModel<T>::AddProducer(std::function<T()> fun) {
 }
 
 template <typename T>
-void ProducerConsumerModel<T>::AddConsumer(std::function<void(T)> fun) {
+void ProducerConsumerModel<T>::AddConsumer(const std::function<void(T)> &fun) {
   std::thread th([this, fun]() {
     T my_buffer;
     {
