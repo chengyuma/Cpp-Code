@@ -1,3 +1,5 @@
+#pragma once
+
 #include <mutex>
 
 // could use std::shared_mutex instead

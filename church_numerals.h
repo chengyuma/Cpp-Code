@@ -1,3 +1,5 @@
+#pragma once
+
 #include <functional>
 
 template <typename T> using Apply = std::function<T(T)>;
