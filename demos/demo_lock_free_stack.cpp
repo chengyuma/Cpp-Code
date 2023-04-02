@@ -12,7 +12,7 @@ int main() {
     if (stack.Pop(temp)) {
       std::cout << "Pop success, data: " << *temp << std::endl;
     } else {
-      std::cout << "Pop faild\n";
+      std::cout << "Pop failed\n";
     }
   }
 }

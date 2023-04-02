@@ -26,7 +26,7 @@ template <typename T>
 template <typename U>
 void LockFreeStack<T>::Push(U &&data) {
   auto new_node = std::make_shared<Node<T>>(std::forward<U>(data));
-  new_node->next = head;
+  new_node->next = std::atomic_load(&head);
   while (
       !std::atomic_compare_exchange_weak(&head, &(new_node->next), new_node)) {
     ;
@@ -34,7 +34,7 @@ void LockFreeStack<T>::Push(U &&data) {
 }
 
 template <typename T> bool LockFreeStack<T>::Pop(T *data) {
-  std::shared_ptr<Node<T>> popped(head);
+  std::shared_ptr<Node<T>> popped(std::atomic_load(&head));
   while (popped &&
          !std::atomic_compare_exchange_weak(&head, &popped, popped->next)) {
     ;
