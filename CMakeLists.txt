@@ -12,6 +12,7 @@ add_executable(demo_spinlock demos/demo_spinlock.cpp)
 add_executable(demo_producer_consumer_model demos/demo_producer_consumer_model.cpp)
 add_executable(demo_church_numerals  demos/demo_church_numerals.cpp)
 add_executable(demo_lock_free_stack  demos/demo_lock_free_stack.cpp)
+add_executable(demo_lock_free_queue  demos/demo_lock_free_queue.cpp)
 
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
