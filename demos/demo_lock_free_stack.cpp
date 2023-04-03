@@ -1,7 +1,6 @@
 #include "../lock_free_stack.h"
 #include <chrono>
 #include <iostream>
-#include <mutex>
 #include <thread>
 #include <vector>
 
@@ -21,8 +20,6 @@ int main() {
   auto pop_task = [&stack](int i, const auto &start) {
     int *temp = new int;
     std::this_thread::sleep_until(start);
-    static std::mutex mut_;
-    std::unique_lock<std::mutex> io_lock(mut_);
     if (stack.Pop(temp)) {
       std::cout << "Pop success, data: " << *temp << std::endl;
     } else {
@@ -36,9 +33,9 @@ int main() {
   for (int i = 0; i < 5; ++i) {
     pop_threads.emplace_back(pop_task, i, start1);
   }
-  for (int i = 0; i < 5; ++i) {
-    pop_threads.emplace_back(pop_task, i, start2);
-  }
+  // for (int i = 0; i < 5; ++i) {
+  //   pop_threads.emplace_back(pop_task, i, start2);
+  // }
 
   for (auto &i : push_threads) {
     i.join();

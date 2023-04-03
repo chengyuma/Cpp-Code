@@ -3,6 +3,9 @@
 #include <atomic>
 #include <memory>
 
+// define WAIT_DATA: if there is no data in stack, wait data.
+// no define WAIT_DATA: if there is no data in stack, return false.
+#define WAIT_DATA
 template <typename T> struct Node {
   T data;
   std::shared_ptr<Node> next;
@@ -33,6 +36,20 @@ void LockFreeStack<T>::Push(U &&data) {
   }
 }
 
+#ifdef WAIT_DATA
+template <typename T> bool LockFreeStack<T>::Pop(T *data) {
+  std::shared_ptr<Node<T>> popped;
+  while (!std::atomic_compare_exchange_weak(&head, &popped,
+                                            popped ? popped->next : nullptr) ||
+         popped == nullptr) {
+    ;
+  }
+  *data = popped->data;
+  return true;
+}
+#endif
+
+#ifndef WAIT_DATA
 template <typename T> bool LockFreeStack<T>::Pop(T *data) {
   std::shared_ptr<Node<T>> popped(std::atomic_load(&head));
   while (popped &&
@@ -45,3 +62,4 @@ template <typename T> bool LockFreeStack<T>::Pop(T *data) {
   *data = popped->data;
   return true;
 }
+#endif
