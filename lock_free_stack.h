@@ -47,9 +47,8 @@ template <typename T> bool LockFreeStack<T>::Pop(T *data) {
   *data = popped->data;
   return true;
 }
-#endif
 
-#ifndef WAIT_DATA
+#else
 template <typename T> bool LockFreeStack<T>::Pop(T *data) {
   std::shared_ptr<Node<T>> popped(std::atomic_load(&head));
   while (popped &&
