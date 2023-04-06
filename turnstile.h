@@ -3,6 +3,8 @@
 #include <mutex>
 #include <queue>
 
+// like turnstile in
+
 struct Turnstile {
   std::mutex mut_;
   std::condition_variable cond_;
@@ -43,6 +45,24 @@ private:
   std::shared_ptr<Turnstile> turnstile;
 };
 
+std::shared_ptr<Turnstile> TurnstilePool::Get() {
+  std::unique_lock<std::mutex> lock(mut);
+  used_turnstile++;
+  if (queue.size() > 0) {
+    auto ret = std::move(queue.front());
+    queue.pop();
+    return ret;
+  } else {
+    return std::make_shared<Turnstile>();
+  }
+}
+
+void TurnstilePool::Put(std::shared_ptr<Turnstile> &&ptr) {
+  std::unique_lock<std::mutex> lock(mut);
+  used_turnstile--;
+  queue.push(std::move(ptr));
+}
+
 void TurnstileLock::Lock() {
   if (turnstile == nullptr) {
     turnstile = TurnstilePool::Get();
@@ -65,22 +85,4 @@ void TurnstileLock::UnLock() {
     turnstile->couldPass = true;
     turnstile->cond_.notify_one();
   }
-}
-
-std::shared_ptr<Turnstile> TurnstilePool::Get() {
-  std::unique_lock<std::mutex> lock(mut);
-  used_turnstile++;
-  if (queue.size() > 0) {
-    auto ret = std::move(queue.front());
-    queue.pop();
-    return ret;
-  } else {
-    return std::make_shared<Turnstile>();
-  }
-}
-
-void TurnstilePool::Put(std::shared_ptr<Turnstile> &&ptr) {
-  std::unique_lock<std::mutex> lock(mut);
-  used_turnstile--;
-  queue.push(std::move(ptr));
 }
