@@ -4,7 +4,7 @@
 #include <mutex>
 #include <queue>
 
-// like golang's Channel
+// like golang Channel
 template <typename T> class Channel {
 public:
   Channel() : is_close(false) {}
