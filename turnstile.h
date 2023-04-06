@@ -3,7 +3,7 @@
 #include <mutex>
 #include <queue>
 
-// like turnstile in
+// like turnstile in Solaris
 
 struct Turnstile {
   std::mutex mut_;
