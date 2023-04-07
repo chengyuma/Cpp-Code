@@ -1,6 +1,7 @@
 #pragma once
 
 #include <mutex>
+#include <condition_variable>
 
 // could use std::shared_mutex instead
 class RWLock {

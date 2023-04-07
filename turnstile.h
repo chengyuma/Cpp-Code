@@ -2,6 +2,7 @@
 
 #include <mutex>
 #include <queue>
+#include <condition_variable>
 
 // like turnstile in Solaris
 

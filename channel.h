@@ -3,6 +3,7 @@
 #include <memory>
 #include <mutex>
 #include <queue>
+#include <condition_variable>
 
 // like golang Channel
 template <typename T> class Channel {
