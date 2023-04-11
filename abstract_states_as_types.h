@@ -1,10 +1,11 @@
 #include <cstdlib>
 #include <type_traits>
 
-// Two examples of process state switching
-// The first one uses a variable to store process state
-// The second abstract states as types
-// And in Linux, the different states of a process are abstracted by the PCB in different linked lists
+// Two examples of process state switching.
+// The first one uses a variable to store process state.
+// The second abstract states as types.
+// And in Linux, the different states of a process are represented by the PCB in
+// different linked lists.
 
 enum class ProcessState {
   Created,
@@ -44,14 +45,14 @@ bool ProcessStateInVariable::StateTransition(ProcessState state_expect) {
       this->state = state_expect;
       return true;
     } else {
-      return false;
+      return 0;
     }
   } else if (this->state == ProcessState::Ready) {
     if (state_expect == ProcessState::Running) {
       this->state = state_expect;
       return true;
     } else {
-      return false;
+      return 0;
     }
   } else if (this->state == ProcessState::Running) {
     if (state_expect == ProcessState::Ready ||
@@ -60,17 +61,17 @@ bool ProcessStateInVariable::StateTransition(ProcessState state_expect) {
       this->state = state_expect;
       return true;
     } else {
-      return false;
+      return 0;
     }
   } else if (this->state == ProcessState::Waiting) {
     if (state_expect == ProcessState::Ready) {
       this->state = state_expect;
       return true;
     } else {
-      return false;
+      return 0;
     }
   } else {
-    return false;
+    return 0;
   }
 }
 
@@ -84,38 +85,38 @@ public:
 };
 
 template <typename T> struct can_to_ready {
-  enum { value = false };
+  enum { value = 0 };
 };
 template <> struct can_to_ready<ProcessStateInType<ProcessState::Created>> {
-  enum { value = true };
+  enum { value = 1 };
 };
 template <> struct can_to_ready<ProcessStateInType<ProcessState::Running>> {
-  enum { value = true };
+  enum { value = 1 };
 };
 template <> struct can_to_ready<ProcessStateInType<ProcessState::Waiting>> {
-  enum { value = true };
+  enum { value = 1 };
 };
 
 template <typename T> struct can_to_running {
-  enum { value = false };
+  enum { value = 0 };
 };
 template <> struct can_to_running<ProcessStateInType<ProcessState::Ready>> {
-  enum { value = true };
+  enum { value = 1 };
 };
 
 template <typename T> struct can_to_waiting {
-  enum { value = false };
+  enum { value = 0 };
 };
 template <> struct can_to_waiting<ProcessStateInType<ProcessState::Running>> {
-  enum { value = true };
+  enum { value = 1 };
 };
 
 template <typename T> struct can_to_terminated {
-  enum { value = false };
+  enum { value = 0 };
 };
 template <>
 struct can_to_waiting<ProcessStateInType<ProcessState::Terminated>> {
-  enum { value = true };
+  enum { value = 1 };
 };
 
 template <typename T, typename T2 = std::enable_if<can_to_ready<T>::value>>
