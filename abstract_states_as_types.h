@@ -83,38 +83,38 @@ public:
 };
 
 template <typename T> struct can_to_ready {
-  enum { value = 0 };
+  enum { value = false };
 };
 template <> struct can_to_ready<ProcessStateInType<ProcessState::Created>> {
-  enum { value = 1 };
+  enum { value = true };
 };
 template <> struct can_to_ready<ProcessStateInType<ProcessState::Running>> {
-  enum { value = 1 };
+  enum { value = true };
 };
 template <> struct can_to_ready<ProcessStateInType<ProcessState::Waiting>> {
-  enum { value = 1 };
+  enum { value = true };
 };
 
 template <typename T> struct can_to_running {
-  enum { value = 0 };
+  enum { value = false };
 };
 template <> struct can_to_running<ProcessStateInType<ProcessState::Ready>> {
-  enum { value = 1 };
+  enum { value = true };
 };
 
 template <typename T> struct can_to_waiting {
-  enum { value = 0 };
+  enum { value = false };
 };
 template <> struct can_to_waiting<ProcessStateInType<ProcessState::Running>> {
-  enum { value = 1 };
+  enum { value = true };
 };
 
 template <typename T> struct can_to_terminated {
-  enum { value = 0 };
+  enum { value = false };
 };
 template <>
 struct can_to_waiting<ProcessStateInType<ProcessState::Terminated>> {
-  enum { value = 1 };
+  enum { value = true };
 };
 
 template <typename T, typename T2 = std::enable_if<can_to_ready<T>::value>>
