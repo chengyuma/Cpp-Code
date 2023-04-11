@@ -14,6 +14,7 @@ add_executable(demo_church_numerals  demos/demo_church_numerals.cpp)
 add_executable(demo_lock_free_stack  demos/demo_lock_free_stack.cpp)
 add_executable(demo_turnstile  demos/demo_turnstile.cpp)
 add_executable(demo_simple_thread_pool  demos/demo_simple_thread_pool.cpp)
+add_executable(demo_abstract_states_as_types  demos/demo_abstract_states_as_types.cpp)
 
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
