@@ -4,6 +4,7 @@
 // Two examples of process state switching
 // The first one uses a variable to store process state
 // The second abstract states as types
+// And in Linux, the different states of a process are abstracted by the PCB in different linked lists
 
 enum class ProcessState {
   Created,
@@ -26,7 +27,7 @@ private:
 };
 
 // First one uses a variable to store the state
-// call StateTransition() will return whether the transition successful
+// Call StateTransition() will return whether the transition successful
 // The check of the state transitions is legal at runtime
 class ProcessStateInVariable : public ProcessBase {
 public:

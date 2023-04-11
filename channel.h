@@ -43,7 +43,7 @@ template <typename T> bool Channel<T>::Recive(T *data_ptr) {
   if (is_close) {
     return false;
   }
-  *data_ptr = q.front();
+  *data_ptr = std::move(q.front());
   q.pop();
   return true;
 }
