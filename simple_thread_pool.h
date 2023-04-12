@@ -10,7 +10,7 @@
 
 class SimpleThreadPool {
 public:
-  SimpleThreadPool(int threads_num)
+  explicit SimpleThreadPool(int threads_num)
       : threads_num(threads_num), state(State::Stop) {}
   SimpleThreadPool(const SimpleThreadPool &) = delete;
   SimpleThreadPool(const SimpleThreadPool &&) = delete;
