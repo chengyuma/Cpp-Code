@@ -9,9 +9,9 @@
 struct Turnstile {
   std::mutex mut_;
   std::condition_variable cond_;
-  bool couldPass;
-  int waitingCount;
-  Turnstile() : couldPass(true), waitingCount(0) {}
+  bool could_pass;
+  int waiting_count;
+  Turnstile() : could_pass(true), waiting_count(0) {}
 };
 
 class TurnstilePool {
@@ -69,21 +69,21 @@ void TurnstileLock::Lock() {
     turnstile = TurnstilePool::Get();
   }
   std::unique_lock<std::mutex> lock(turnstile->mut_);
-  (turnstile->waitingCount)++;
-  if (turnstile->waitingCount == 1) {
-    turnstile->couldPass = false;
+  (turnstile->waiting_count)++;
+  if (turnstile->waiting_count == 1) {
+    turnstile->could_pass = false;
   } else {
-    turnstile->cond_.wait(lock, [this] { return turnstile->couldPass; });
+    turnstile->cond_.wait(lock, [this] { return turnstile->could_pass; });
   }
 }
 
 void TurnstileLock::UnLock() {
   std::unique_lock<std::mutex> lock(turnstile->mut_);
-  turnstile->waitingCount--;
-  if (turnstile->waitingCount == 0) {
+  turnstile->waiting_count--;
+  if (turnstile->waiting_count == 0) {
     TurnstilePool::Put(std::move(turnstile));
   } else {
-    turnstile->couldPass = true;
+    turnstile->could_pass = true;
     turnstile->cond_.notify_one();
   }
 }

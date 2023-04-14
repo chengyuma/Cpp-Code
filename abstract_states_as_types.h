@@ -47,14 +47,14 @@ bool ProcessStateInVariable::StateTransition(ProcessState state_expect) {
       this->state = state_expect;
       return true;
     } else {
-      return 0;
+      return false;
     }
   } else if (this->state == ProcessState::Ready) {
     if (state_expect == ProcessState::Running) {
       this->state = state_expect;
       return true;
     } else {
-      return 0;
+      return false;
     }
   } else if (this->state == ProcessState::Running) {
     if (state_expect == ProcessState::Ready ||
@@ -63,17 +63,17 @@ bool ProcessStateInVariable::StateTransition(ProcessState state_expect) {
       this->state = state_expect;
       return true;
     } else {
-      return 0;
+      return false;
     }
   } else if (this->state == ProcessState::Waiting) {
     if (state_expect == ProcessState::Ready) {
       this->state = state_expect;
       return true;
     } else {
-      return 0;
+      return false;
     }
   } else {
-    return 0;
+    return false;
   }
 }
 
