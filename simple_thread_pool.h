@@ -28,7 +28,7 @@ public:
 
 private:
   enum class State {
-    Runing,
+    Running,
     WatingForFinish,
     Stop,
   };
@@ -46,7 +46,7 @@ private:
 SimpleThreadPool::~SimpleThreadPool() { Stop(false); }
 
 void SimpleThreadPool::Start() {
-  state = State::Runing;
+  state = State::Running;
   for (int i = 0; i < threads_num; ++i) {
     threads.emplace_back(&SimpleThreadPool::worker, this);
   }
@@ -74,7 +74,7 @@ void SimpleThreadPool::Stop(bool wait_for_all_finish) {
 
 template <typename F, typename... Args>
 void SimpleThreadPool::PushTask(F &&fun, Args &&...args) {
-  if (state != State::Runing) {
+  if (state != State::Running) {
     return;
   }
   std::function<void()> task =
