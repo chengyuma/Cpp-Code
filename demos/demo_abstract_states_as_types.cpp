@@ -8,8 +8,9 @@ int main() {
   process_state_in_variable.StateTransition(ProcessState::Running);
   process_state_in_variable.StateTransition(ProcessState::Terminated);
 
-  ProcessStateInType<ProcessState::Created> processStateInType;
-  auto ready_process = TransitionToReady(process_state_in_variable);
+  ProcessStateInType<ProcessState::Created> process_state_in_type;
+  auto ready_process = TransitionToReady(process_state_in_type);
+  // auto ready_process2 = TransitionToRunning(process_state_in_type);
   auto running_process = TransitionToRunning(ready_process);
   auto waiting_process = TransitionToWaiting(running_process);
   ready_process = TransitionToReady(waiting_process);

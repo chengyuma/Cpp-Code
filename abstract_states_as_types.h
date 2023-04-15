@@ -117,26 +117,30 @@ template <typename T> struct can_to_terminated {
   enum { value = 0 };
 };
 template <>
-struct can_to_waiting<ProcessStateInType<ProcessState::Terminated>> {
+struct can_to_terminated<ProcessStateInType<ProcessState::Running>> {
   enum { value = 1 };
 };
 
-template <typename T, typename T2 = std::enable_if<can_to_ready<T>::value>>
+template <typename T, typename T2 = typename std::enable_if_t<
+                          can_to_ready<T>::value>>
 ProcessStateInType<ProcessState::Ready> TransitionToReady(T process) {
   return ProcessStateInType<ProcessState::Ready>(process);
 }
 
-template <typename T, typename T2 = std::enable_if<can_to_running<T>::value>>
+template <typename T, typename T2 = typename std::enable_if_t<
+                          can_to_running<T>::value>>
 ProcessStateInType<ProcessState::Running> TransitionToRunning(T process) {
   return ProcessStateInType<ProcessState::Running>(process);
 }
 
-template <typename T, typename T2 = std::enable_if<can_to_waiting<T>::value>>
+template <typename T,
+          typename T2 = typename std::enable_if_t<can_to_waiting<T>::value>>
 ProcessStateInType<ProcessState::Waiting> TransitionToWaiting(T process) {
   return ProcessStateInType<ProcessState::Waiting>(process);
 }
 
-template <typename T, typename T2 = std::enable_if<can_to_terminated<T>::value>>
+template <typename T, typename T2 = typename std::enable_if_t<
+                          can_to_terminated<T>::value>>
 ProcessStateInType<ProcessState::Terminated> TransitionToTerminated(T process) {
   return ProcessStateInType<ProcessState::Terminated>(process);
 }
