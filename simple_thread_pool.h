@@ -14,8 +14,8 @@ public:
       : threads_num(threads_num), state(State::Stop) {}
   SimpleThreadPool(const SimpleThreadPool &) = delete;
   SimpleThreadPool(const SimpleThreadPool &&) = delete;
-  SimpleThreadPool operator=(const SimpleThreadPool &) = delete;
-  SimpleThreadPool operator=(const SimpleThreadPool &&) = delete;
+  SimpleThreadPool& operator=(const SimpleThreadPool &) = delete;
+  SimpleThreadPool& operator=(const SimpleThreadPool &&) = delete;
   ~SimpleThreadPool();
   void Start();
   void Stop(bool wait_for_all_finish);

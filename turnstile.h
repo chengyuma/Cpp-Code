@@ -18,8 +18,8 @@ class TurnstilePool {
 public:
   TurnstilePool(const TurnstilePool &) = delete;
   TurnstilePool(const TurnstilePool &&) = delete;
-  TurnstilePool operator=(const TurnstilePool &) = delete;
-  TurnstilePool operator=(const TurnstilePool &&) = delete;
+  TurnstilePool& operator=(const TurnstilePool &) = delete;
+  TurnstilePool& operator=(const TurnstilePool &&) = delete;
 
   static std::shared_ptr<Turnstile> Get();
   static void Put(std::shared_ptr<Turnstile> &&ptr);
@@ -36,8 +36,8 @@ public:
   TurnstileLock() = default;
   TurnstileLock(const TurnstileLock &) = delete;
   TurnstileLock(const TurnstileLock &&) = delete;
-  TurnstileLock operator=(const TurnstileLock &) = delete;
-  TurnstileLock operator=(const TurnstileLock &&) = delete;
+  TurnstileLock& operator=(const TurnstileLock &) = delete;
+  TurnstileLock& operator=(const TurnstileLock &&) = delete;
 
   void Lock();
   void UnLock();
