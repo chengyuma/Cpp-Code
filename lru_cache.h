@@ -16,7 +16,7 @@ public:
   void Put(const Key &key, const Value &val);
 
 private:
-  void RefreshList(const Key &key);
+  void MoveToFront(const Key &key);
 
   using CacheList = std::list<std::pair<Key, Value>>;
   int cap_;
@@ -35,7 +35,7 @@ void LRUCache<Key, Value, Hash, KeyEqual>::Put(const Key &key,
       list_.pop_back();
     }
   } else {
-    RefreshList(key);
+    MoveToFront(key);
     list_.front().second = val;
   }
 }
@@ -45,14 +45,14 @@ bool LRUCache<Key, Value, Hash, KeyEqual>::Get(const Key &key, Value *val_ptr) {
   if (map_.count(key) == 0) {
     return false;
   } else {
-    RefreshList(key);
+    MoveToFront(key);
     *val_ptr = list_.front().second;
     return true;
   }
 }
 
 template <typename Key, typename Value, typename Hash, typename KeyEqual>
-void LRUCache<Key, Value, Hash, KeyEqual>::RefreshList(const Key &key) {
+void LRUCache<Key, Value, Hash, KeyEqual>::MoveToFront(const Key &key) {
   auto iter = map_[key];
   if (iter != list_.begin()) {
     list_.splice(list_.cbegin(), list_, iter, std::next(iter));
