@@ -15,7 +15,7 @@ public:
 private:
   std::mutex mut_;
   std::condition_variable cond_;
-  int lock_count; // -1,W lock; >0, R lock
+  int lock_count; // -1, W lock; >0, R lock
   int waiter;
 };
 
