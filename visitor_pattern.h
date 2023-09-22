@@ -20,8 +20,8 @@ public:
 
 class SleepVisitor : public AnimalVisitor {
 public:
-  void Visit(Cat &cat) { std::cout << "Cat is sleeping.\n"; }
-  void Visit(Dog &dog) { std::cout << "Dog is sleeping.\n"; }
+  virtual void Visit(Cat &cat) override { std::cout << "Cat is sleeping.\n"; }
+  virtual void Visit(Dog &dog) override { std::cout << "Dog is sleeping.\n"; }
 };
 
 class Animal {
@@ -31,10 +31,10 @@ public:
 
 class Cat : public Animal {
 public:
-  virtual void Accept(AnimalVisitor &Visitor) override { Visitor.Visit(*this); }
+  virtual void Accept(AnimalVisitor &visitor) override { visitor.Visit(*this); }
 };
 
 class Dog : public Animal {
 public:
-  virtual void Accept(AnimalVisitor &Visitor) override { Visitor.Visit(*this); }
+  virtual void Accept(AnimalVisitor &visitor) override { visitor.Visit(*this); }
 };
