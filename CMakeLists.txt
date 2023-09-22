@@ -17,6 +17,7 @@ add_executable(demo_simple_thread_pool  demos/demo_simple_thread_pool.cpp)
 add_executable(demo_abstract_states_as_types  demos/demo_abstract_states_as_types.cpp)
 add_executable(demo_factorial_without_recursion  demos/demo_factorial_without_recursion.cpp)
 add_executable(demo_lru_cache  demos/demo_lru_cache.cpp)
+add_executable(demo_visitor_pattern  demos/demo_visitor_pattern.cpp)
 
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
