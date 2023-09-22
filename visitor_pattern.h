@@ -14,14 +14,14 @@ public:
 
 class EatVisitor : public AnimalVisitor {
 public:
-  virtual void Visit(Cat &cat) override { std::cout << "Cat eat.\n"; }
-  virtual void Visit(Dog &dog) override { std::cout << "Dog eat.\n"; }
+  virtual void Visit(Cat &cat) override { std::cout << "Cat is eating.\n"; }
+  virtual void Visit(Dog &dog) override { std::cout << "Dog is eating.\n"; }
 };
 
 class SleepVisitor : public AnimalVisitor {
 public:
-  void Visit(Cat &cat) { std::cout << "Cat sleep.\n"; }
-  void Visit(Dog &dog) { std::cout << "Dog sleep.\n"; }
+  void Visit(Cat &cat) { std::cout << "Cat is sleeping.\n"; }
+  void Visit(Dog &dog) { std::cout << "Dog is sleeping.\n"; }
 };
 
 class Animal {
