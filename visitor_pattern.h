@@ -1,5 +1,7 @@
 // a simple example of visitor pattern using animals to demonstrate
 
+#pragma once
+
 #include <iostream>
 #include <string>
 
