@@ -1,4 +1,4 @@
-#include "../spinlock.h"
+#include "spinlock.h"
 #include <algorithm>
 #include <iostream>
 #include <thread>

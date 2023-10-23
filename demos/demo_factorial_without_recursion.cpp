@@ -1,4 +1,4 @@
-#include "../factorial_without_recursion.h"
+#include "factorial_without_recursion.h"
 #include <iostream>
 
 int main() {

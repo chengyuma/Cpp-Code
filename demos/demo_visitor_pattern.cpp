@@ -1,4 +1,4 @@
-#include "../visitor_pattern.h"
+#include "visitor_pattern.h"
 
 int main() {
   Cat cat;

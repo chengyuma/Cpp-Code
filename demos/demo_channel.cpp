@@ -1,4 +1,4 @@
-#include "../channel.h"
+#include "channel.h"
 #include <iostream>
 #include <queue>
 #include <thread>

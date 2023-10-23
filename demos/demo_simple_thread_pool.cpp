@@ -1,4 +1,4 @@
-#include "../simple_thread_pool.h"
+#include "simple_thread_pool.h"
 #include <chrono>
 #include <iostream>
 

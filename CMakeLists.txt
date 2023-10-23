@@ -21,6 +21,8 @@ add_executable(demo_visitor_pattern  demos/demo_visitor_pattern.cpp)
 
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+set(PROJECT_INCLUDE ${CMAKE_SOURCE_DIR})
+include_directories(${PROJECT_INCLUDE})
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)

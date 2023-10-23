@@ -1,4 +1,4 @@
-#include "../turnstile.h"
+#include "turnstile.h"
 
 #include <chrono>
 #include <iostream>

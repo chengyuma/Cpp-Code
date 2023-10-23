@@ -1,4 +1,4 @@
-#include "../read_write_lock.h"
+#include "read_write_lock.h"
 #include <algorithm>
 #include <iostream>
 #include <thread>

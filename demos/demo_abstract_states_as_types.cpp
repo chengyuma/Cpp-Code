@@ -1,4 +1,4 @@
-#include "../abstract_states_as_types.h"
+#include "abstract_states_as_types.h"
 
 int main() {
   ProcessStateInVariable process_state_in_variable;

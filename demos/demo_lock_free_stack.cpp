@@ -1,4 +1,4 @@
-#include "../lock_free_stack.h"
+#include "lock_free_stack.h"
 #include <chrono>
 #include <iostream>
 #include <thread>

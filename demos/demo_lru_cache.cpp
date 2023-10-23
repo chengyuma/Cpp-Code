@@ -1,4 +1,4 @@
-#include "../lru_cache.h"
+#include "lru_cache.h"
 #include <iostream>
 
 int main() {

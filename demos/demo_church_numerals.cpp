@@ -1,4 +1,4 @@
-#include "../church_numerals.h"
+#include "church_numerals.h"
 
 #include <iostream>
 
